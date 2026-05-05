@@ -436,20 +436,19 @@ function selectDay(el,d){
   el.classList.add('sel');selDay=d;selTime=null;
   document.querySelectorAll('.time-slot.sel').forEach(x=>x.classList.remove('sel'));
   document.getElementById('timePick').classList.add('show');
-  document.getElementById('bookActions').classList.remove('show');
+  // Show WA button immediately on day selection
+  const msg=encodeURIComponent(`Hola Daniela! Me gustaría agendar una sesión de maternidad el ${d} de mayo de 2026. ¿Está disponible esa fecha?`);
+  document.getElementById('waBtn').href=`https://wa.me/573177949759?text=${msg}`;
+  document.getElementById('bookSelInfo').textContent=`${d} de mayo — elige horario o escríbeme directo`;
+  document.getElementById('bookActions').classList.add('show');
 }
 function selectTime(el,t){
   document.querySelectorAll('.time-slot.sel').forEach(x=>x.classList.remove('sel'));
-  el.classList.add('sel');selTime=t;updateBooking();
-}
-function updateBooking(){
-  if(!selDay||!selTime)return;
-  const info=`${selDay} de mayo · ${selTime}`;
-  document.getElementById('bookSelInfo').textContent=`Sesión: ${info}`;
-  const msg=encodeURIComponent(`Hola Daniela! Me gustaría agendar una sesión de maternidad el ${info}. ¿Está disponible esa fecha y horario?`);
+  el.classList.add('sel');selTime=t;
+  // Update message with time
+  const msg=encodeURIComponent(`Hola Daniela! Me gustaría agendar una sesión de maternidad el ${selDay} de mayo de 2026 a las ${t}. ¿Está disponible esa fecha y horario?`);
   document.getElementById('waBtn').href=`https://wa.me/573177949759?text=${msg}`;
-
-  document.getElementById('bookActions').classList.add('show');
+  document.getElementById('bookSelInfo').textContent=`Sesión: ${selDay} de mayo · ${t}`;
 }
 </script>
 </body>
