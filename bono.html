@@ -174,11 +174,11 @@
     <div class="row">
       <div>
         <p class="field-label">Para</p>
-        <p class="field-value" contenteditable="true" spellcheck="false">Nombre</p>
+        <p class="field-value" id="campo-para">Nombre</p>
       </div>
       <div>
         <p class="field-label">De parte de</p>
-        <p class="field-value" contenteditable="true" spellcheck="false">Tu nombre</p>
+        <p class="field-value" id="campo-de">Tu nombre</p>
       </div>
     </div>
     <div class="message" contenteditable="true" spellcheck="false">
@@ -200,10 +200,18 @@
   <div class="footer">@danielaovviedophoto &nbsp;·&nbsp; fotografía</div>
 </div>
 <script>
-  const c = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-  let r = '';
-  for (let i = 0; i < 4; i++) r += c[Math.floor(Math.random() * c.length)];
-  document.getElementById('gc-code').textContent = 'DOV-2026-' + r;
+  const params = new URLSearchParams(window.location.search);
+  const para = params.get("para");
+  const de = params.get("de");
+  const codigo = params.get("codigo");
+
+  if (para) document.getElementById("campo-para").textContent = para;
+  if (de) document.getElementById("campo-de").textContent = de;
+
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  let code = '';
+  for (let i = 0; i < 4; i++) code += chars[Math.floor(Math.random() * chars.length)];
+  document.getElementById("gc-code").textContent = codigo || ('DOV-2026-' + code);
 </script>
 </body>
 </html>
